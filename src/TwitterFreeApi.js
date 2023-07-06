@@ -105,20 +105,10 @@ class TwitterFreeApi{
             username: result.legacy.screen_name,
             name: result.legacy.name,
         }
-        
     }
-}
 
-
-module.exports = {TwitterFreeApi}
-
-
-
-async function following(){
-
-    let variables = "%7B%22userId%22%3A%221619950391466115073%22%2C%22includePromotedContent%22%3Afalse%7D"
-
-    const res = await fetch(`https://twitter.com/i/api/graphql/lE9JJNkmW6PLDjq4yAocYw/Following?variables=${variables}features=%7B%22rweb_lists_timeline_redesign_enabled%22%3Atrue%2C%22responsive_web_graphql_exclude_directive_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22tweetypie_unmention_optimization_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Afalse%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Afalse%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D`, {
+    static async getFollowers(){
+      const res = await fetch("https://twitter.com/i/api/graphql/sKlU5dd_nanz9P2CxBt2sg/Following?variables=%7B%22userId%22%3A%221619950391466115073%22%2C%22count%22%3A20%2C%22includePromotedContent%22%3Afalse%7D&features=%7B%22rweb_lists_timeline_redesign_enabled%22%3Atrue%2C%22responsive_web_graphql_exclude_directive_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22tweetypie_unmention_optimization_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22responsive_web_twitter_article_tweet_consumption_enabled%22%3Afalse%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Atrue%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Atrue%2C%22responsive_web_media_download_video_enabled%22%3Afalse%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D&fieldToggles=%7B%22withArticleRichContentState%22%3Afalse%7D", {
         "headers": {
           "accept": "*/*",
           "accept-language": "ru,en;q=0.9",
@@ -130,23 +120,38 @@ async function following(){
           "sec-fetch-dest": "empty",
           "sec-fetch-mode": "cors",
           "sec-fetch-site": "same-origin",
-          "x-client-uuid": "cc27a8f8-7e87-4a16-8548-417aa6c9384c",
           "x-csrf-token": "9dfa9326d716ac16e3afa7c568c2fc888c5fd0a42d666ddbc8eed7a450095d2a60d9f07e78821e5c6e1a0932aacbdf13f20a9ed7258fcc63ae21105daa2e83742718587de6f12e4ec5f7d3c3b340b8c1",
           "x-twitter-active-user": "yes",
           "x-twitter-auth-type": "OAuth2Session",
           "x-twitter-client-language": "en",
-          "cookie": "des_opt_in=Y; kdt=qoEulEtrfdiYjqxGOWHuu0KNFp6WL0l7onAVGMY4; guest_id=v1%3A167472014720052844; auth_token=a43d75606cd7be4c35c3754662ce64884c21609d; ct0=9dfa9326d716ac16e3afa7c568c2fc888c5fd0a42d666ddbc8eed7a450095d2a60d9f07e78821e5c6e1a0932aacbdf13f20a9ed7258fcc63ae21105daa2e83742718587de6f12e4ec5f7d3c3b340b8c1; twid=u%3D1619950391466115073; tweetdeck_version=beta; _gcl_au=1.1.154891562.1682433129; guest_id_marketing=v1%3A167472014720052844; guest_id_ads=v1%3A167472014720052844; d_prefs=MToxLGNvbnNlbnRfdmVyc2lvbjoyLHRleHRfdmVyc2lvbjoxMDAw; personalization_id=\"v1_0iqrINd6iahW4zF+E5KYBg==\"; lang=en; external_referer=padhuUp37zhGLs0pttBy5NsUNKHWScGsXHrMbnkriOBJYOEADnEek2AG84UZAiHAD6Kfk49eQp0iN4dOmAUwSLmmw2WKXcoZ|0|8e8t2xd8A2w%3D; at_check=true; eu_cn=1; _gid=GA1.2.1415208929.1686725730; mbox=PC#7b83cc323f544014bfba9bea77026094.37_0#1749980007|session#5dee7770a1334140850d7a5a4e00837b#1686737067; _ga_34PHSZMC42=GS1.1.1686734881.3.1.1686735286.0.0.0; _ga=GA1.2.739965579.1683194227",
+          "cookie": "des_opt_in=Y; kdt=qoEulEtrfdiYjqxGOWHuu0KNFp6WL0l7onAVGMY4; guest_id=v1%3A167472014720052844; auth_token=a43d75606cd7be4c35c3754662ce64884c21609d; ct0=9dfa9326d716ac16e3afa7c568c2fc888c5fd0a42d666ddbc8eed7a450095d2a60d9f07e78821e5c6e1a0932aacbdf13f20a9ed7258fcc63ae21105daa2e83742718587de6f12e4ec5f7d3c3b340b8c1; twid=u%3D1619950391466115073; tweetdeck_version=beta; _gcl_au=1.1.154891562.1682433129; guest_id_marketing=v1%3A167472014720052844; guest_id_ads=v1%3A167472014720052844; d_prefs=MToxLGNvbnNlbnRfdmVyc2lvbjoyLHRleHRfdmVyc2lvbjoxMDAw; eu_cn=1; mbox=PC#7b83cc323f544014bfba9bea77026094.37_0#1749980007|session#5dee7770a1334140850d7a5a4e00837b#1686737067; _ga_34PHSZMC42=GS1.1.1686734881.3.1.1686735286.0.0.0; _ga=GA1.2.739965579.1683194227; lang=en; personalization_id=\"v1_4VHJSONnzx63CjCAKzjbsA==\"; external_referer=padhuUp37zihGDM6YyBmzmoi5sb8ERvkS0wlDqCOris%3D|0|8e8t2xd8A2w%3D; _gid=GA1.2.364111224.1688624242",
           "Referer": "https://twitter.com/itsme93901329/following",
           "Referrer-Policy": "strict-origin-when-cross-origin"
         },
         "body": null,
         "method": "GET"
-      })
-    const data = await res.json()
-
-    // console.log(data.data.user.result.timeline.timeline.instructions[3].entries.length)
-      console.log(data)
+      });
+      const data = await res.json() 
+      const result = data.data.user.result.timeline.timeline.instructions[3].entries
+      .map(x => x.content.itemContent?.user_results)
+      .filter( el => el !== undefined)
+     
+      return result.map(x => {
+        return {
+          __typename: x.result.__typename, 
+          created_at: x.result.legacy.created_at,
+          userid: x.result.rest_id,
+          username: x.result.legacy.screen_name,
+          name: x.result.legacy.name,
+        }
+    })
+    }
 }
+
+
+module.exports = {TwitterFreeApi}
+
+
 
 async function createFrend(){
   fetch("https://twitter.com/i/api/1.1/friendships/create.json", {

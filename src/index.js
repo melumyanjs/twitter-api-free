@@ -1,14 +1,15 @@
-const { TwitterFreeApi } = require('./util')
+const { TwitterFreeApi } = require('./TwitterFreeApi')
 
 
 
 
 async function main(){
 
-  // let user = await TwitterFreeApi.getUserByName('itsme93901329')
-  let user = await TwitterFreeApi.getUserById('1619950391466115073')
-  
-  console.log(user)
+  // let data = await TwitterFreeApi.getUserByName('itsme93901329')
+  // let data = await TwitterFreeApi.getUserById('1619950391466115073')
+  let data = await TwitterFreeApi.getFollowers()
+
+  console.log(data)
 }
 
 main()
